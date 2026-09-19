@@ -1,0 +1,18 @@
+# Hosting linkage and local tooling
+.vercel/
+
+# Local-only source renders; derived AVIF/WebP/MP4 assets are versioned.
+assets/*-master.jpg
+assets/oome-hero-visual-master.mp4
+assets/oome-wordmark-dark.svg
+
+# Local QA and asset-generation utilities
+capture.js
+responsive-live-qa.js
+create_header_logo.py
+create_logo_icons.py
+create_hero_candidate_sheet.py
+create_secondary_hero_assets.py
+
+# Browser and operating-system artefacts
+.DS_Store
