@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oome-minerals.vercel.app/sitemap.xml
+Sitemap: https://www.oomeminerals.com/sitemap.xml
