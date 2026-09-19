@@ -12,15 +12,38 @@ if (button && nav) {
 
 const form = document.querySelector('#enquiry-form');
 if (form) {
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
     const status = document.querySelector('#form-status');
+    const submit = form.querySelector('button[type="submit"]');
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    status.textContent = 'Your enquiry details have been prepared. OOME will connect a verified controlled contact route before public submission is enabled.';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.consent = form.querySelector('#consent').checked;
+    submit.disabled = true;
+    submit.setAttribute('aria-busy', 'true');
+    status.textContent = 'Sending your enquiry…';
     status.classList.add('show');
+
+    try {
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.message || 'Unable to send enquiry.');
+      status.textContent = result.message;
+      form.reset();
+    } catch (error) {
+      status.textContent = error.message || 'We could not send your enquiry at present. Please try again shortly.';
+    } finally {
+      submit.disabled = false;
+      submit.removeAttribute('aria-busy');
+    }
   });
 }
 
