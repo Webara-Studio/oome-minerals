@@ -82,9 +82,12 @@ if (isHome && !reducedMotion && !constrainedConnection && !introSeen) {
   intro.className = 'oome-intro';
   intro.setAttribute('aria-hidden', 'true');
   intro.innerHTML = `
-    <div class="oome-intro__halo"></div>
+    <div class="oome-intro__ground-glow"></div>
+    <div class="oome-intro__emblem-stage">
+      <img src="assets/oome-emblem-gold.png" alt="">
+    </div>
+    <div class="oome-intro__soil" aria-hidden="true"></div>
     <div class="oome-intro__brand">
-      <img src="assets/oome-wordmark-header-clean.png" alt="">
       <span></span>
       <p>Ghanaian mineral expertise · international trade discipline</p>
     </div>`;
@@ -98,7 +101,7 @@ if (isHome && !reducedMotion && !constrainedConnection && !introSeen) {
     document.body.classList.remove('intro-active');
     window.setTimeout(() => intro.remove(), 700);
   };
-  window.setTimeout(dismissIntro, 1050);
+  window.setTimeout(dismissIntro, 2200);
   window.addEventListener('keydown', event => {
     if (event.key === 'Escape') dismissIntro();
   }, { once: true });
