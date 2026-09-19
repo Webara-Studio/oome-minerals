@@ -74,6 +74,12 @@ if (constrainedConnection) {
     video.load();
   });
 }
+const replayIntro = isHome && new URLSearchParams(location.search).get('replay-intro') === '1';
+if (replayIntro) {
+  try { sessionStorage.removeItem('oome-intro-seen'); } catch (_) {}
+  history.replaceState(null, '', `${location.pathname}${location.hash}`);
+}
+
 let introSeen = false;
 try { introSeen = sessionStorage.getItem('oome-intro-seen') === '1'; } catch (_) {}
 
